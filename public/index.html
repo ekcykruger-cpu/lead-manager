@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lead Desk | Maruti Suzuki lead qualification</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0b1f4d; --blue:#1b49b4; --blue-d:#133a94; --red:#d9001b; --red-bg:#fdecee;
+  --ink:#1a1f2e; --mut:#5b6479; --line:#e3e7ef; --bg:#f4f6fb; --card:#fff;
+  --green:#0f7a4a; --green-bg:#e4f5ec; --amber:#8a5a00; --amber-bg:#fff3d6; --blue-bg:#e8eefc;
+  --r:10px;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:'Poppins','Segoe UI',system-ui,sans-serif;font-size:14px;color:var(--ink);background:var(--bg);line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--blue)}
+.hide{display:none!important}
+:focus-visible{outline:3px solid #7aa2ff;outline-offset:2px}
+
+/* header */
+.util{background:var(--navy);color:#c9d4f2;font-size:12px;padding:6px 24px;display:flex;justify-content:space-between;gap:12px}
+header.top{background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:28px;padding:0 24px;height:64px;position:sticky;top:0;z-index:20}
+.logo{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--navy);text-decoration:none;font-size:16px}
+.logo i{width:32px;height:32px;background:var(--red);border-radius:6px;display:grid;place-items:center;color:#fff;font-style:normal;font-weight:600}
+nav.main{display:flex;gap:6px;height:100%}
+nav.main button{background:none;border:0;border-bottom:3px solid transparent;padding:0 14px;cursor:pointer;font-weight:500;color:var(--mut)}
+nav.main button:hover{color:var(--navy)}
+nav.main button.on{color:var(--navy);border-bottom-color:var(--red)}
+.who{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:12px;color:var(--mut)}
+.who b{color:var(--ink);font-weight:500}
+
+.btn{border:0;border-radius:999px;padding:10px 22px;background:var(--blue);color:#fff;font-weight:500;cursor:pointer}
+.btn:hover{background:var(--blue-d)}
+.btn.ghost{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
+.btn.ghost:hover{background:var(--blue-bg)}
+.btn.red{background:var(--red)}
+.btn.sm{padding:6px 14px;font-size:12px}
+.btn.block{width:100%}
+
+/* login */
+#login{min-height:calc(100vh - 0px);display:grid;grid-template-columns:1.1fr 1fr}
+.login-art{background:var(--navy);color:#fff;padding:56px;display:flex;flex-direction:column;justify-content:center;gap:18px}
+.login-art h1{font-size:34px;line-height:1.2;margin:0;font-weight:600;max-width:420px}
+.login-art p{margin:0;max-width:400px;color:#b8c5ee}
+.login-art svg{margin-top:20px;max-width:380px;opacity:.9}
+.login-form{display:grid;place-items:center;padding:32px;background:#fff}
+.login-form form{width:100%;max-width:380px}
+.login-form h2{margin:0 0 4px;font-size:22px;color:var(--navy)}
+.login-form .sub{color:var(--mut);margin:0 0 22px}
+.fld{margin:0 0 16px}
+.fld label{display:block;font-size:12px;font-weight:500;color:var(--mut);margin:0 0 4px}
+.fld input,.fld select,.fld textarea{width:100%;padding:10px 12px;border:1.5px solid #cfd6e6;border-radius:8px;background:#fff}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--blue);outline:none;box-shadow:0 0 0 3px #cfdcff}
+.fld .hint{font-size:12px;color:var(--mut);margin-top:3px}
+.fld .err{font-size:12px;color:var(--red);margin-top:3px;min-height:0}
+.fld.bad input{border-color:var(--red)}
+
+/* hero + stats */
+.hero{background:linear-gradient(180deg,var(--navy),#10306f);color:#fff;padding:26px 24px 70px}
+.hero h1{margin:0;font-size:26px;font-weight:600}
+.hero p{margin:4px 0 0;color:#b8c5ee}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:-48px 24px 18px}
+.stat{background:#fff;border-radius:var(--r);padding:14px 16px;border:1px solid var(--line)}
+.stat b{display:block;font-size:24px;font-weight:600;color:var(--navy);line-height:1.2}
+.stat span{font-size:12px;color:var(--mut)}
+.stat.fin b{color:var(--red)}
+.page{padding:0 24px 40px}
+.page.pad{padding-top:24px;max-width:860px}
+
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+.toolbar input,.toolbar select{padding:9px 12px;border:1.5px solid #cfd6e6;border-radius:999px;background:#fff;min-width:150px}
+.toolbar input{flex:1;min-width:220px}
+.split{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
+.split.has-detail{grid-template-columns:minmax(0,1.5fr) minmax(360px,1fr)}
+.tablewrap{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:auto;max-height:calc(100vh - 220px)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{position:sticky;top:0;background:#f0f3fa;text-align:left;font-weight:500;color:var(--mut);padding:10px 12px;font-size:12px;white-space:nowrap;z-index:1}
+td{padding:10px 12px;border-top:1px solid var(--line);white-space:nowrap}
+tr.row{cursor:pointer}
+tr.row:hover td{background:#f7f9fe}
+tr.row.sel td{background:var(--blue-bg)}
+tr.row.fin td{background:var(--red-bg)}
+tr.row.fin td:first-child{box-shadow:inset 5px 0 0 var(--red)}
+tr.row.fin.sel td{background:#fbd9de}
+td .sub{display:block;font-size:11px;color:var(--mut)}
+.tel{color:var(--blue);font-weight:500;text-decoration:none;border-bottom:1.5px dotted var(--blue)}
+.tel:hover{background:var(--blue-bg)}
+.tel.locked{color:#8b93a7;border:0;text-decoration:line-through;cursor:not-allowed;pointer-events:none}
+.chip{display:inline-block;padding:2px 10px;border-radius:999px;font-size:11.5px;font-weight:500;background:#eceff6;color:#3a4357}
+.chip.new{background:var(--blue-bg);color:var(--blue-d)}
+.chip.prog{background:var(--amber-bg);color:var(--amber)}
+.chip.q{background:#efe6ff;color:#5b2cb0}
+.chip.ok{background:var(--green-bg);color:var(--green)}
+.chip.fin{background:var(--red);color:#fff}
+.chip.brand-n{background:#1a1a1a;color:#e6c46a}
+.chip.brand-a{background:#e8eefc;color:var(--blue-d)}
+.dots{display:inline-flex;gap:3px;vertical-align:middle;margin-right:6px}
+.dots i{width:9px;height:9px;border-radius:50%;background:#d3d9e8}
+.dots i.u{background:var(--blue)}
+.empty{padding:40px;text-align:center;color:var(--mut)}
+
+/* detail */
+.detail{background:#fff;border:1px solid var(--line);border-radius:var(--r);position:sticky;top:80px;max-height:calc(100vh - 100px);overflow:auto}
+.detail.fin{border:2px solid var(--red)}
+.d-head{padding:18px 20px 12px;display:flex;gap:12px;align-items:center;position:relative}
+.av{width:46px;height:46px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:600;flex:none}
+.d-head h3{margin:0;font-size:17px;color:var(--navy)}
+.d-head .x{margin-left:auto;background:none;border:0;font-size:22px;cursor:pointer;color:var(--mut)}
+.banner{background:var(--red);color:#fff;padding:14px 20px;font-weight:500}
+.banner b{display:block;font-size:17px;letter-spacing:.3px}
+.banner span{font-size:12.5px;opacity:.95}
+.qbanner{background:#efe6ff;color:#4b2394;padding:12px 20px;font-weight:500}
+.stamp{position:absolute;right:16px;top:56px;transform:rotate(-10deg);border:3px solid var(--red);color:var(--red);padding:2px 12px;font-weight:600;font-size:20px;border-radius:6px;opacity:.85;background:rgba(255,255,255,.7);pointer-events:none}
+.sec{padding:12px 20px;border-top:1px solid var(--line)}
+.sec h4{margin:0 0 8px;font-size:12px;font-weight:500;color:var(--mut);text-transform:none}
+.kv{display:grid;grid-template-columns:130px 1fr;gap:4px 10px;font-size:13px}
+.kv dt{color:var(--mut)}
+.kv dd{margin:0}
+.na{color:#a3abbd;font-style:italic}
+.numrow{display:flex;align-items:center;gap:10px;margin:0 0 6px}
+.slot{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:0 0 8px;font-size:13px}
+.slot.empty{border-style:dashed;color:#a3abbd}
+.slot .id{font-family:ui-monospace,Menlo,monospace;font-size:12.5px}
+.slot .meta{font-size:11.5px;color:var(--mut)}
+.slot a.play{font-weight:500;font-size:12.5px}
+.sim{font-size:10.5px;background:var(--amber-bg);color:var(--amber);padding:1px 6px;border-radius:4px;margin-left:4px}
+
+/* integration */
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin:0 0 16px}
+.card h3{margin:0 0 4px;color:var(--navy);font-size:16px}
+.card p.d{margin:0 0 14px;color:var(--mut);font-size:12.5px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.chk{display:flex;gap:8px;align-items:flex-start;margin:0 0 10px;font-size:13px}
+.chk input{margin-top:4px}
+textarea.code{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;min-height:110px}
+pre.pv{background:#0f1730;color:#cfe0ff;padding:12px 14px;border-radius:8px;font-size:12px;overflow:auto;margin:6px 0 0}
+
+/* modal */
+.scrim{position:fixed;inset:0;background:rgba(8,16,40,.6);display:grid;place-items:center;z-index:100;padding:16px}
+.modal{background:#fff;border-radius:14px;width:100%;max-width:640px;max-height:92vh;overflow:auto}
+.m-head{padding:18px 22px;background:var(--navy);color:#fff;border-radius:14px 14px 0 0}
+.m-head h3{margin:0;font-size:18px;font-weight:600}
+.m-head p{margin:2px 0 0;font-size:12.5px;color:#b8c5ee}
+.m-body{padding:18px 22px}
+.grp{font-size:12px;font-weight:500;margin:14px 0 8px;display:flex;align-items:center;gap:8px}
+.grp:first-child{margin-top:0}
+.grp.f{color:var(--red)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tile{text-align:left;border:1.5px solid #cfd6e6;background:#fff;border-radius:10px;padding:10px 12px;cursor:pointer;font-weight:500;font-size:13px}
+.tile:hover{border-color:var(--blue)}
+.tile.on{border-color:var(--blue);background:var(--blue-bg);color:var(--blue-d)}
+.tile.f{border-color:#f0b4bb}
+.tile.f:hover{border-color:var(--red)}
+.tile.f.on{border-color:var(--red);background:var(--red-bg);color:#a30016}
+.warn{background:var(--red-bg);border-left:5px solid var(--red);color:#8d0014;padding:10px 12px;border-radius:6px;margin:12px 0 0;font-size:13px}
+.okmsg{background:var(--green-bg);border-left:5px solid var(--green);color:#0a5a36;padding:10px 12px;border-radius:6px;margin:12px 0 0;font-size:13px;font-weight:500}
+.m-foot{padding:14px 22px 20px;display:flex;justify-content:flex-end;align-items:center;gap:12px}
+.m-foot .err{margin-right:auto;color:var(--red);font-size:12.5px}
+
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 20px;border-radius:999px;z-index:200;font-size:13px;max-width:90vw;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+#toast.err{background:var(--red)}
+
+@media (max-width:1000px){
+  .split.has-detail{grid-template-columns:minmax(0,1fr)}
+  .detail{position:fixed;inset:0;z-index:60;max-height:none;border-radius:0;top:0}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  #login{grid-template-columns:1fr}
+  .login-art{padding:32px}
+  header.top{gap:12px;padding:0 12px}
+  .who .em{display:none}
+}
+@media (max-width:560px){.tiles{grid-template-columns:1fr}.row2{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){.modal{animation:pop .18s ease-out}@keyframes pop{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}}
+
+.alink{color:var(--blue);font-weight:500;text-decoration:underline}
+.erow{display:grid;grid-template-columns:1fr 1fr auto auto;gap:8px;align-items:center;margin:0 0 8px}
+.erow input{padding:8px 10px;border:1.5px solid #cfd6e6;border-radius:8px;background:#fff;min-width:0}
+.linkbox{display:flex;gap:8px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 8px;margin:0 0 4px}
+.linkbox span{flex:1;font-family:ui-monospace,Menlo,monospace;font-size:11.5px;word-break:break-all}
+.plist{display:grid;gap:8px}
+.plist .tile{display:block;width:100%}
+.tsub{display:block;font-weight:400;color:var(--mut);font-size:12px}
+.tile.on .tsub{color:var(--blue-d)}
+@media (max-width:560px){.erow{grid-template-columns:1fr 1fr}}
+details.call{border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin:0 0 8px;font-size:12.5px}
+details.call summary{cursor:pointer}
+details.call pre{margin:8px 0 0;white-space:pre-wrap;word-break:break-all}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<main id="login">
+  <section class="login-art">
+    <h1>Qualify every lead, one call at a time.</h1>
+    <p>Call customers who asked about a Maruti Suzuki, record what they said, and keep the list clean.</p>
+    <svg viewBox="0 0 400 120" fill="none" stroke="#7f9be0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M20 88h360M44 88c0-18 6-30 22-36l44-16c14-5 34-8 56-8s44 4 58 12l30 18c10 4 22 8 28 16 0 6-2 14-8 14"/>
+      <path d="M110 36l12-20c4-6 12-8 22-8h52c14 0 24 4 32 12l20 16"/>
+      <circle cx="108" cy="92" r="18"/><circle cx="296" cy="92" r="18"/>
+    </svg>
+  </section>
+  <section class="login-form">
+    <form id="loginForm" novalidate>
+      <h2>Sign in</h2>
+      <p class="sub">Calls ring your phone first, then connect to the customer. Ask your administrator for the password.</p>
+      <div class="fld" id="f-email"><label for="email">Email address</label><input id="email" type="email" autocomplete="username" placeholder="name@company.com"><div class="err"></div></div>
+      <div class="fld" id="f-pass"><label for="pass">Password</label><input id="pass" type="password" autocomplete="current-password" placeholder="Your password"><div class="err"></div></div>
+      <div class="fld" id="f-phone"><label for="phone">Your phone number</label><input id="phone" type="tel" placeholder="+61404294260"><div class="hint">International format, starting with + and the country code.</div><div class="err"></div></div>
+      <button class="btn block" type="submit">Sign in</button>
+    </form>
+  </section>
+</main>
+
+<!-- APP -->
+<div id="app" class="hide">
+  <div class="util"><span>Lead Desk for Maruti Suzuki enquiries</span><span id="ovrbar"></span><span id="clock"></span></div>
+  <header class="top">
+    <a class="logo" href="#" onclick="return false"><i>S</i>Lead Desk</a>
+    <nav class="main">
+      <button id="nav-leads" class="on" data-view="leads">Leads</button>
+      <button id="nav-admin" data-view="admin">Admin</button>
+      <button id="nav-integration" data-view="integration">Integration</button>
+    </nav>
+    <div class="who"><span class="em"><b id="who-email"></b></span><span>Rings <b id="who-phone"></b></span><button class="btn ghost sm" id="signout">Sign out</button></div>
+  </header>
+
+  <section id="view-leads">
+    <div class="hero"><h1>Lead qualification</h1><p>Select a lead, tap their number to call, then record the outcome.</p></div>
+    <div class="stats" id="stats"></div>
+    <div class="page">
+      <div class="toolbar">
+        <input id="q" type="search" placeholder="Search name, phone, city or car" aria-label="Search leads">
+        <select id="fStatus" aria-label="Filter by status"><option value="">All statuses</option><option value="new">New</option><option value="inprogress">In progress</option><option value="queued">In dialler queue</option><option value="finalised">Finalised</option></select>
+        <select id="fOwner" aria-label="Filter by owner"><option value="">All owners</option></select>
+        <select id="fBrand" aria-label="Filter by brand"><option value="">All brands</option><option>Maruti Suzuki Arena</option><option>Maruti Suzuki Nexa</option></select>
+      </div>
+      <div class="split" id="split">
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Customer</th><th>Phone</th><th>Interested in</th><th>City</th><th>Best time to call</th><th>Trade-in</th><th>Owner</th><th>Calls</th><th>Status</th></tr></thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+        <aside class="detail hide" id="detail" aria-live="polite"></aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-admin" class="hide">
+    <div class="hero"><h1>Admin</h1><p>Set the CXone token, manage sales employees, and reset the demo data.</p></div>
+    <div class="page pad" style="margin-top:-40px">
+      <div class="warn hide" id="storewarn" style="margin:0 0 16px;background:var(--amber-bg);border-color:#d99a00;color:#6b4500"></div>
+      <div class="card">
+        <h3>CXone connection</h3>
+        <p class="d" id="tokstat"></p>
+        <div class="fld"><label for="c-token">Bearer token</label><input id="c-token" type="password" autocomplete="off" placeholder="Paste the access token"><div class="hint">Kept in the server's memory only. It is never written to the data file or sent back to the browser, and it is lost when the server restarts, so paste it again after a redeploy.</div></div>
+        <button class="btn sm" id="c-tok-set" type="button">Use this token</button> <button class="btn ghost sm hide" id="c-tok-clear" type="button">Clear token</button>
+      </div>
+      <div class="card">
+        <h3>Sales employees</h3>
+        <p class="d">These people appear in the Assign list. Each gets an SMS with a one-time link to their assigned lead.</p>
+        <div id="emp-list"></div>
+        <div class="erow" style="margin-top:10px" id="f-emp"><input id="e-name" placeholder="Name" aria-label="New employee name" maxlength="60"><input id="e-mob" placeholder="+919876543210" aria-label="New employee mobile"><button class="btn sm" id="e-add" type="button">Add</button><span></span><div class="err" style="grid-column:1/-1;color:var(--red);font-size:12px"></div></div>
+        <div class="hint" style="font-size:12px;color:var(--mut)">Mobile numbers use E.164 format, like +919876543210. The SMS script that sends them the link is configured on the Integration page (Script 2).</div>
+      </div>
+      <div class="card" style="border-color:var(--red)">
+        <h3 style="color:var(--red)">Reset all leads</h3>
+        <p class="d">Puts every lead back to its default state. Clears owners, call attempts, outcomes and one-time links. Sales employees and settings are kept.</p>
+        <button class="btn red sm" id="reset-btn" type="button">Reset all leads to default</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-integration" class="hide">
+    <div class="hero"><h1>Integration</h1><p>Both scripts are started with the Admin API: POST /scripts/start.</p></div>
+    <div class="page pad" style="margin-top:-40px">
+      <div class="warn" id="devwarn" style="margin:0 0 16px;background:var(--amber-bg);border-color:#d99a00;color:#6b4500"><b>No app password set.</b> The server accepts any password. Set APP_PASSWORD on Railway before going live.</div>
+      <div class="card">
+        <h3>API endpoint</h3>
+        <p class="d">Every request sends <b>skillId</b>, <b>scriptId</b>, <b>scriptPath</b> and <b>parameters</b> (pipe-delimited) as JSON, with your bearer token. <span id="savestat" style="color:var(--green)"></span></p>
+        <div class="row2">
+          <div class="fld"><label for="c-base">API base URL (optional)</label><input id="c-base" placeholder="Blank uses the base from the token"></div>
+          <div class="fld"><label for="c-path">Endpoint path</label><input id="c-path"></div>
+          <div class="fld"><label for="c-delim">Parameter delimiter</label><input id="c-delim" maxlength="3"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Script 1: call the customer</h3>
+        <p class="d">Started when someone taps a customer's number, or Call customer on the mobile link. Parameters, in order: p1 the number to ring (your login phone, or the sales employee's mobile), p2 customer name, p3 brand, p4 customer number (or the call override), p5 Dealer ANI.</p>
+        <div class="row2">
+          <div class="fld" id="f-c1path" style="grid-column:1/-1"><label for="c1-path">Script path (required)</label><input id="c1-path" placeholder="Folder\ScriptName" spellcheck="false"><div class="hint">Full path of the script as shown in Studio.</div><div class="err"></div></div>
+          <div class="fld" id="f-c1id"><label for="c1-id">Script ID (required)</label><input id="c1-id" inputmode="numeric" placeholder="e.g. 12345678"><div class="hint">Changes every time the script is saved in Studio.</div><div class="err"></div></div>
+          <div class="fld" id="f-c1skill"><label for="c1-skill">Skill ID (required)</label><input id="c1-skill" inputmode="numeric" placeholder="e.g. 20967527"><div class="hint">An active skill that matches the script type.</div><div class="err"></div></div>
+        </div>
+        <div class="fld" id="f-dani"><label for="c-dani">Dealer ANI</label><input id="c-dani" type="tel" placeholder="+911123456789"><div class="hint">Sent as p5. Leave blank to omit it. E.164 format.</div><div class="err"></div></div>
+        <div class="fld" id="f-ovr"><label for="c-ovr">Call override (demo number)</label><input id="c-ovr" type="tel" placeholder="+61404294260"><div class="hint">When set, every call uses this number as the customer number (p4) instead of the number on the lead. Leave blank for real calls. E.164 format.</div><div class="err"></div></div>
+        <label class="chk"><input type="checkbox" id="c-incl"><span>Send the customer's number as p4 so the script knows who to dial.</span></label>
+        <label class="chk"><input type="checkbox" id="c-sim"><span>If a call or SMS can't be sent (missing settings, or CXone rejects it), simulate it so you can keep testing. Simulated calls are tagged. Turn this off to see real errors.</span></label>
+      </div>
+
+      <div class="card">
+        <h3>Script 2: SMS to the sales employee</h3>
+        <p class="d">Started when you assign a lead. Exactly two parameters: p1 the employee's mobile and p2 the lead's GUID. The script sends the SMS with the link.</p>
+        <div class="row2">
+          <div class="fld" id="f-c2path" style="grid-column:1/-1"><label for="c2-path">Script path (required)</label><input id="c2-path" placeholder="Folder\SendLeadSMS" spellcheck="false"><div class="err"></div></div>
+          <div class="fld" id="f-c2id"><label for="c2-id">Script ID (required)</label><input id="c2-id" inputmode="numeric" placeholder="e.g. 87654321"><div class="err"></div></div>
+          <div class="fld" id="f-c2skill"><label for="c2-skill">Skill ID (required)</label><input id="c2-skill" inputmode="numeric" placeholder="e.g. 20967527"><div class="err"></div></div>
+          <div class="fld" style="grid-column:1/-1"><label for="c2-link">Link base URL (display only)</label><input id="c2-link" placeholder="https://your-app.up.railway.app"><div class="hint">Used for the link shown in the lead panel. Blank uses this site's address.</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Request preview</h3>
+        <p class="d">Exactly what each script call sends, using your current settings and sample data.</p>
+        <div class="sub2" style="font-size:12px;color:var(--mut)">Script 1</div><pre class="pv" id="preview1"></pre>
+        <div class="sub2" style="font-size:12px;color:var(--mut);margin-top:10px">Script 2</div><pre class="pv" id="preview2"></pre>
+      </div>
+
+      <div class="card">
+        <h3>Recent API calls</h3>
+        <p class="d">The last 20 calls this server made to CXone, with the request and the response. Held in memory only, and the token is never shown. <button class="btn ghost sm" id="c-calls-refresh" type="button" style="margin-left:6px">Refresh</button></p>
+        <div id="calls"></div>
+      </div>
+
+      <div class="card">
+        <h3>Recording playback</h3>
+        <p class="d">Each contact ID is appended to this prefix to build the recording link.</p>
+        <div class="fld"><label for="c-prefix">Playback URL prefix</label><input id="c-prefix"><div class="hint" id="prefstat"></div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- MODAL -->
+<div class="scrim hide" id="scrim" role="dialog" aria-modal="true" aria-labelledby="m-title">
+  <div class="modal">
+    <div class="m-head"><h3 id="m-title">Call outcome</h3><p id="m-sub"></p></div>
+    <div class="m-body" id="m-body"></div>
+    <div class="m-foot"><span class="err" id="m-err"></span><button class="btn" id="m-save">Save outcome</button></div>
+  </div>
+</div>
+<div class="scrim hide" id="pickScrim" role="dialog" aria-modal="true" aria-labelledby="p-title">
+  <div class="modal" style="max-width:440px">
+    <div class="m-head"><h3 id="p-title">Assign to a sales employee</h3><p id="p-sub"></p></div>
+    <div class="m-body"><div id="p-list" class="plist"></div><div class="hint" style="font-size:12px;color:var(--mut);margin-top:10px">They get an SMS with a one-time link to this lead.</div></div>
+    <div class="m-foot"><span class="err" id="p-err"></span><button class="btn ghost" id="p-cancel" type="button">Cancel</button><button class="btn" id="p-go" type="button">Assign and send SMS</button></div>
+  </div>
+</div>
+<div id="toast" class="hide" role="status"></div>
+
+<script src="/outcomes.js"></script>
+<script>
+'use strict';
+const {OUTCOMES, OC} = window.Outcomes;
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtPhone = n => /^\+91\d{10}$/.test(n) ? `+91 ${n.slice(3,8)} ${n.slice(8)}` : n;
+const fmtDT = d => d ? new Date(d).toLocaleString('en-IN', {day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit'}) : '';
+const initials = l => (l.first[0] + l.last[0]).toUpperCase();
+const normNum = v => String(v||'').replace(/[\s-]/g,'');
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const E164 = /^\+[1-9]\d{7,14}$/;
+
+const S = {user:null, leads:[], employees:[], settings:null, tokenInfo:{source:'none',setAt:0,exp:0}, devMode:false, sel:null, pending:null, busy:false, pick:null, assignFor:null, assignPick:null};
+
+async function api(method, url, body){
+  const r = await fetch(url, {method, credentials:'same-origin', headers: body ? {'Content-Type':'application/json'} : {}, body: body ? JSON.stringify(body) : undefined});
+  let j = {}; try { j = await r.json(); } catch(e){}
+  if (r.status === 401 && S.user && url !== '/api/login') { S.user = null; showLogin(); }
+  if (!r.ok) { const e = new Error(j.error || ('Request failed (' + r.status + ')')); e.status = r.status; e.data = j; throw e; }
+  return j;
+}
+
+/* ---------- toast ---------- */
+let toastT;
+function toast(msg, err){const t=$('toast');t.textContent=msg;t.className=err?'err':'';clearTimeout(toastT);toastT=setTimeout(()=>t.classList.add('hide'),err?7000:5000)}
+
+/* ---------- derived ---------- */
+const status = l => l.final ? 'finalised' : l.callback ? 'queued' : l.contacts.length ? 'inprogress' : 'new';
+function statusChip(l){
+  const s = status(l);
+  if (s === 'finalised') return `<span class="chip fin">&#128274; FINALISED: ${esc(l.final.label)}</span>`;
+  if (s === 'queued') return `<span class="chip q">Dialler queue: ${esc(fmtDT(l.callback))}</span>`;
+  if (s === 'inprogress') { const last = l.contacts[l.contacts.length-1]; return `<span class="chip prog">${esc(last && last.outcome ? OC[last.outcome].l : 'Outcome pending')}</span>`; }
+  return '<span class="chip new">New</span>';
+}
+const dots = l => `<span class="dots" aria-label="${l.contacts.length} of 3 calls used">${[0,1,2].map(i=>`<i class="${i<l.contacts.length?'u':''}"></i>`).join('')}</span>${l.contacts.length}/3`;
+const recURL = id => S.settings && S.settings.prefix ? S.settings.prefix + id : '';
+const pendIdx = l => l.contacts.findIndex(c => !c.outcome);
+function upsertLead(l){ const i = S.leads.findIndex(x => x.id === l.id); if (i >= 0) S.leads[i] = l; }
+
+/* ---------- login / session ---------- */
+function setErr(f, msg){const el=$(f);if(!el)return;el.classList.toggle('bad',!!msg);el.querySelector('.err').textContent=msg||''}
+function showLogin(){ $('app').classList.add('hide'); $('login').classList.remove('hide'); }
+function applyState(st){ S.user=st.user; S.leads=st.leads; S.employees=st.employees; S.settings=st.settings; S.tokenInfo=st.tokenInfo; S.storage=st.storage; S.devMode=st.devMode; }
+async function enterApp(){
+  applyState(await api('GET','/api/state'));
+  $('who-email').textContent = S.user.email; $('who-phone').textContent = S.user.phone;
+  $('login').classList.add('hide'); $('app').classList.remove('hide');
+  loadSettingsForm(); showView('leads'); renderAll();
+}
+$('loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const email = $('email').value.trim(), pass = $('pass').value, phone = normNum($('phone').value);
+  let ok = true;
+  if (!EMAIL_RE.test(email)) { setErr('f-email','Enter a valid email address, like name@company.com.'); ok=false } else setErr('f-email');
+  if (!pass) { setErr('f-pass','Enter your password.'); ok=false } else setErr('f-pass');
+  if (!E164.test(phone)) { setErr('f-phone','Enter your number in international format, like +61404294260.'); ok=false } else setErr('f-phone');
+  if (!ok) return;
+  try { const j = await api('POST','/api/login',{email, password:pass, phone}); S.user = j.user; $('pass').value=''; await enterApp(); }
+  catch(err){ setErr('f-pass', err.message); }
+});
+$('signout').addEventListener('click', async () => { try { await api('POST','/api/logout'); } catch(e){} S.user=null; S.sel=null; showLogin(); });
+
+/* ---------- navigation ---------- */
+function showView(v){
+  ['leads','admin','integration'].forEach(n => { $('view-'+n).classList.toggle('hide', v!==n); $('nav-'+n).classList.toggle('on', v===n); });
+  if (v==='integration') renderIntegration();
+  if (v==='admin') renderAdmin();
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('nav.main button').forEach(b => b.addEventListener('click', () => showView(b.dataset.view)));
+setInterval(()=>{$('clock').textContent = new Date().toLocaleString('en-IN',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})},1000);
+
+/* ---------- leads list ---------- */
+function filtered(){
+  const q = $('q').value.trim().toLowerCase(), fs = $('fStatus').value, fb = $('fBrand').value, fo = $('fOwner').value;
+  return S.leads.filter(l => {
+    if (fs && status(l) !== fs) return false;
+    if (fb && l.brand !== fb) return false;
+    if (fo === '__none' && l.owner) return false;
+    if (fo && fo !== '__none' && (!l.owner || l.owner.id !== fo)) return false;
+    if (!q) return true;
+    return [l.first,l.last,l.phone,l.altPhone,l.city,l.model,l.email,l.owner?l.owner.name:''].join(' ').toLowerCase().includes(q) || (l.first+' '+l.last).toLowerCase().includes(q);
+  });
+}
+function renderOwnerFilter(){
+  const cur = $('fOwner').value;
+  $('fOwner').innerHTML = '<option value="">All owners</option><option value="__none">Unassigned</option>' + S.employees.map(e => `<option value="${esc(e.id)}">${esc(e.name)}</option>`).join('');
+  $('fOwner').value = [...$('fOwner').options].some(o => o.value === cur) ? cur : '';
+}
+function renderStats(){
+  const c = {new:0,inprogress:0,queued:0,finalised:0};
+  S.leads.forEach(l => c[status(l)]++);
+  $('stats').innerHTML =
+    `<div class="stat"><b>${S.leads.length}</b><span>Total leads</span></div>
+     <div class="stat"><b>${c.new}</b><span>New, not yet called</span></div>
+     <div class="stat"><b>${c.inprogress}</b><span>In progress</span></div>
+     <div class="stat"><b>${c.queued}</b><span>In dialler queue</span></div>
+     <div class="stat fin"><b>${c.finalised}</b><span>Finalised</span></div>`;
+}
+function phoneCell(l){
+  if (l.final) return `<span class="tel locked" title="Lead finalised, dialling disabled">${esc(fmtPhone(l.phone))}</span>`;
+  return `<a href="#" class="tel" data-dial="${l.id}|p" title="Call ${esc(l.first)}">${esc(fmtPhone(l.phone))}</a>${l.altPhone?`<span class="sub">+1 alternate number</span>`:''}`;
+}
+function ownerCell(l){
+  const name = l.owner ? esc(l.owner.name) : '<span class="na">Unassigned</span>';
+  const act = l.final ? '' : `<a href="#" class="alink" data-assign="${l.id}">${l.owner ? 'Reassign' : 'Assign'}</a>`;
+  return `${name}<span class="sub">${act}</span>`;
+}
+function renderTable(){
+  const rows = filtered();
+  $('tbody').innerHTML = rows.length ? rows.map(l => `
+    <tr class="row ${l.final?'fin':''} ${S.sel===l.id?'sel':''}" data-id="${l.id}">
+      <td><b>${esc(l.first)} ${esc(l.last)}</b><span class="sub">${esc(l.source)}</span></td>
+      <td>${phoneCell(l)}</td>
+      <td>${esc(l.model)}<span class="sub">${l.brand.endsWith('Nexa')?'Nexa':'Arena'}</span></td>
+      <td>${l.city?esc(l.city):'<span class="na">none</span>'}</td>
+      <td>${l.callPref?esc(l.callPref):'<span class="na">not given</span>'}</td>
+      <td>${l.tradeIn?esc(l.tradeIn):'<span class="na">unknown</span>'}</td>
+      <td>${ownerCell(l)}</td>
+      <td>${dots(l)}</td>
+      <td>${statusChip(l)}</td>
+    </tr>`).join('') : '<tr><td colspan="9" class="empty">No leads match these filters. Clear the search to see them all.</td></tr>';
+}
+const LINK_LABEL = {issued:'Link sent, not opened', used:'Link used', completed:'Link used, outcome saved', revoked:'Link replaced'};
+function renderDetail(){
+  const box = $('detail'), l = S.leads.find(x => x.id === S.sel);
+  $('split').classList.toggle('has-detail', !!l);
+  box.classList.toggle('hide', !l);
+  if (!l) return;
+  const fin = !!l.final, na = '<span class="na">not provided</span>';
+  const pend = pendIdx(l);
+  const num = (n, key, label) => {
+    if (!n) return '';
+    return `<div class="numrow"><span style="min-width:74px;color:var(--mut);font-size:12px">${label}</span>
+      ${fin || l.contacts.length>=3 ? `<span class="tel locked">${esc(fmtPhone(n))}</span><span class="chip">${fin?'Finalised':'All 3 attempts used'}</span>`
+        : `<a href="#" class="tel" data-dial="${l.id}|${key}">${esc(fmtPhone(n))}</a>`}</div>`;
+  };
+  const slots = [0,1,2].map(i => {
+    const c = l.contacts[i];
+    if (!c) return `<div class="slot empty">Contact ID ${i+1}: not used${fin?' (locked)':''}</div>`;
+    const url = recURL(c.id);
+    return `<div class="slot"><div><b>Contact ID ${i+1}:</b> <span class="id">${esc(c.id)}</span>${c.simulated?'<span class="sim">simulated</span>':''}</div>
+      <div class="meta">${esc(fmtDT(c.at))} &middot; dialled ${esc(fmtPhone(c.number))}${c.override?` <span class="sim">override for ${esc(fmtPhone(c.recNum))}</span>`:''}${c.by==='mobile'?` &middot; by ${esc(c.employee||'sales')} on mobile`:''}</div>
+      <div style="margin-top:4px">${c.outcome?`<span class="chip ${OC[c.outcome].cat==='final'?'fin':'prog'}">${esc(OC[c.outcome].l)}</span>`:'<span class="chip">Outcome pending</span>'}
+      ${url?` &nbsp;<a class="play" href="${esc(url)}" target="_blank" rel="noopener">&#9654; Play recording</a>`:' &nbsp;<span class="meta">Set a playback prefix to enable recording links</span>'}</div>
+      ${c.note?`<div class="meta" style="margin-top:4px">Note: ${esc(c.note)}</div>`:''}</div>`;
+  }).join('');
+  const lk = l.link;
+  const ownerSec = `<div class="sec"><h4>Sales owner</h4>
+    <div style="margin-bottom:6px"><b>${l.owner?esc(l.owner.name):'Unassigned'}</b>${lk?` <span class="chip ${lk.state==='issued'?'q':'new'}">${esc(LINK_LABEL[lk.state]||lk.state)}</span>`:''}</div>
+    ${lk && lk.url ? `<div class="linkbox"><span id="lk-url">${esc(lk.url)}</span><button class="btn ghost sm" data-copy="${esc(lk.url)}">Copy</button></div><div class="meta" style="font-size:11.5px;color:var(--mut)">One-time link. It works until the sales employee taps Call customer.</div>` : ''}
+    ${fin ? '' : `<button class="btn ghost sm" data-assign="${l.id}" style="margin-top:8px">${l.owner?'Reassign and send new SMS':'Assign and send SMS'}</button>`}</div>`;
+  box.className = 'detail' + (fin ? ' fin' : '');
+  box.innerHTML = `
+    ${fin ? `<div class="banner"><b>&#128274; LEAD FINALISED: DO NOT CALL</b><span>${esc(l.final.label)} &middot; ${esc(fmtDT(l.final.at))}. Dialling is disabled for this lead.</span></div>` : ''}
+    ${!fin && l.callback ? `<div class="qbanner">In the automated dialler queue for ${esc(fmtDT(l.callback))}</div>` : ''}
+    <div class="d-head"><div class="av">${esc(initials(l))}</div><div><h3>${esc(l.first)} ${esc(l.last)}</h3><span class="chip ${l.brand.endsWith('Nexa')?'brand-n':'brand-a'}">${esc(l.brand)}</span></div><button class="x" id="d-close" aria-label="Close details">&times;</button>${fin?'<div class="stamp">FINALISED</div>':''}</div>
+    <div class="sec"><h4>Phone numbers</h4>${num(l.phone,'p','Primary')}${num(l.altPhone,'a','Alternate')}${!l.altPhone?'<div class="na" style="font-size:12px">No alternate number</div>':''}
+      ${!fin && l.contacts.length<3 && pend<0 ? `<div style="font-size:11.5px;color:var(--mut);margin-top:4px">Tap a number to ring ${esc(fmtPhone(S.user.phone))} and connect. ${3-l.contacts.length} attempt${3-l.contacts.length===1?'':'s'} left.</div>`:''}
+      ${!fin && pend>=0 ? `<div style="margin-top:6px"><button class="btn red sm" data-pending="${l.id}">Record outcome of last call</button></div>`:''}
+      ${!fin && l.contacts.length>=3 ? `<div style="font-size:12px;color:var(--red)">All 3 call attempts have been used.</div>`:''}</div>
+    ${ownerSec}
+    <div class="sec"><h4>Call attempts and recordings</h4>${slots}</div>
+    <div class="sec"><h4>Interest</h4><dl class="kv">
+      <dt>Car</dt><dd>${esc(l.model)}</dd><dt>Fuel</dt><dd>${l.fuel?esc(l.fuel):na}</dd><dt>Budget</dt><dd>${l.budget?esc(l.budget):na}</dd>
+      <dt>Enquired</dt><dd>${esc(fmtDT(l.enquired).split(',')[0])} via ${esc(l.source)}</dd></dl></div>
+    <div class="sec"><h4>Current vehicle and trade-in</h4><dl class="kv">
+      <dt>Current car</dt><dd>${l.currentCar?esc(l.currentCar):na}</dd><dt>Trade-in</dt><dd>${l.tradeIn?esc(l.tradeIn):na}</dd></dl></div>
+    <div class="sec"><h4>Contact details</h4><dl class="kv">
+      <dt>Best time to call</dt><dd>${l.callPref?esc(l.callPref):na}</dd><dt>Email</dt><dd>${l.email?esc(l.email):na}</dd><dt>Address</dt><dd>${l.address?esc(l.address):na}</dd></dl></div>`;
+}
+function renderAll(){renderOwnerFilter();renderStats();renderTable();renderDetail()}
+['q','fStatus','fBrand','fOwner'].forEach(id => $(id).addEventListener('input', renderTable));
+
+document.addEventListener('click', async e => {
+  const t = e.target;
+  const dial = t.closest('[data-dial]');
+  if (dial) { e.preventDefault(); e.stopPropagation(); const [id,key] = dial.dataset.dial.split('|'); dialLead(+id, key); return; }
+  const as = t.closest('[data-assign]');
+  if (as) { e.preventDefault(); e.stopPropagation(); openAssign(+as.dataset.assign); return; }
+  const cp = t.closest('[data-copy]');
+  if (cp) { copyText(cp.dataset.copy); return; }
+  const pd = t.closest('[data-pending]');
+  if (pd) { const l = S.leads.find(x => x.id === +pd.dataset.pending); S.pending = {leadId:l.id, idx:pendIdx(l)}; openModal(); return; }
+  if (t.closest('#d-close')) { S.sel = null; renderAll(); return; }
+  const es = t.closest('[data-esave]'), ed = t.closest('[data-edel]');
+  if (es) { const row = es.closest('.erow'); return saveEmployee(es.dataset.esave, row.querySelector('.e-name').value, row.querySelector('.e-mob').value); }
+  if (ed) { if (confirm('Remove this sales employee? Leads they own keep their name as owner.')) return removeEmployee(ed.dataset.edel); return; }
+  const row = t.closest('tr.row');
+  if (row && !t.closest('a')) { S.sel = +row.dataset.id; renderAll(); }
+});
+async function copyText(txt){
+  try { await navigator.clipboard.writeText(txt); toast('Link copied.'); }
+  catch(e){ window.prompt('Copy this link:', txt); }
+}
+
+/* ---------- dial ---------- */
+async function dialLead(id, key){
+  const l = S.leads.find(x => x.id === id);
+  if (!l) return;
+  if (l.final) return toast('This lead is finalised. Calls are disabled.', true);
+  if (l.contacts.length >= 3) return toast('All 3 call attempts have been used for this lead.', true);
+  const pi = pendIdx(l);
+  if (pi >= 0) { S.sel = id; S.pending = {leadId:id, idx:pi}; renderAll(); toast('Record the outcome of the last call first.'); return openModal(); }
+  if (S.pending || S.busy) return;
+  S.busy = true; S.sel = id; renderAll();
+  toast('Starting call…');
+  try {
+    const j = await api('POST', `/api/leads/${id}/dial`, {key});
+    upsertLead(j.lead);
+    S.pending = {leadId:id, idx:j.idx};
+    toast(j.simulated ? `Simulated call (${j.why}). Contact ID ${j.contactId}` : `Call started. Contact ID ${j.contactId}`);
+    S.busy = false; renderAll(); openModal();
+  } catch (err) {
+    S.busy = false; if (err.data && err.data.lead) upsertLead(err.data.lead);
+    renderAll(); toast("Couldn't start the call. " + err.message, true);
+  }
+}
+
+/* ---------- outcome modal ---------- */
+function openModal(){
+  const p = S.pending, l = S.leads.find(x => x.id === p.leadId), c = l.contacts[p.idx];
+  S.pick = null;
+  $('m-sub').innerHTML = `${esc(l.first)} ${esc(l.last)} &middot; ${esc(fmtPhone(c.number))} &middot; Contact ID ${esc(c.id)}${c.simulated?' (simulated)':''}`;
+  const tile = o => `<button type="button" class="tile ${o.cat==='final'?'f':''}" data-k="${o.k}">${esc(o.l)}</button>`;
+  $('m-body').innerHTML = `
+    <div class="grp">What happened on the call? <span style="color:var(--mut);font-weight:400">Pick one.</span></div>
+    <div class="grp" style="color:var(--blue-d)">Keep the lead open</div>
+    <div class="tiles">${OUTCOMES.filter(o=>o.cat==='open').map(tile).join('')}</div>
+    <div id="sched" class="hide"><div class="fld" style="margin:12px 0 0"><label for="when">Call back on</label><input type="datetime-local" id="when"></div><div id="schedmsg"></div></div>
+    <div class="grp f" style="margin-top:18px">Finalise the lead: no more calls</div>
+    <div class="tiles">${OUTCOMES.filter(o=>o.cat==='final').map(tile).join('')}</div>
+    <div id="finwarn" class="warn hide"><b>This locks the lead.</b> The phone numbers stop working and no further calls can be made.</div>
+    <div class="fld" style="margin:16px 0 0"><label for="note">Notes (optional)</label><input id="note" maxlength="200" placeholder="Anything worth remembering from the call"></div>`;
+  $('m-err').textContent = '';
+  const now = new Date(Date.now() + 15*60e3 - new Date().getTimezoneOffset()*60e3);
+  $('when').min = now.toISOString().slice(0,16);
+  $('scrim').classList.remove('hide');
+  const f = $('m-body').querySelector('.tile'); if (f) f.focus();
+}
+$('m-body').addEventListener('click', e => {
+  const t = e.target.closest('.tile'); if (!t) return;
+  S.pick = t.dataset.k; const o = OC[S.pick];
+  $('m-body').querySelectorAll('.tile').forEach(x => x.classList.toggle('on', x === t));
+  $('sched').classList.toggle('hide', !o.schedule);
+  $('finwarn').classList.toggle('hide', o.cat !== 'final');
+  $('m-err').textContent = '';
+  if (o.schedule) { $('when').focus(); updateSched(); } else $('schedmsg').innerHTML = '';
+});
+function whenValid(){const v=$('when').value;if(!v)return null;const d=new Date(v);return d.getTime()>Date.now()?d:null}
+function updateSched(){
+  const d = whenValid();
+  $('schedmsg').innerHTML = d ? `<div class="okmsg">&#10003; This lead is now added to the automated dialler queue for ${esc(fmtDT(d))}.</div>` : '';
+}
+$('m-body').addEventListener('input', e => { if (e.target.id === 'when') { updateSched(); $('m-err').textContent=''; } });
+$('m-save').addEventListener('click', async () => {
+  if (!S.pick) { $('m-err').textContent = 'Pick an outcome to continue.'; return; }
+  const o = OC[S.pick], p = S.pending, l = S.leads.find(x => x.id === p.leadId);
+  let when = null;
+  if (o.schedule) { when = whenValid(); if (!when) { $('m-err').textContent = 'Choose a date and time in the future.'; return; } }
+  $('m-save').disabled = true;
+  try {
+    const j = await api('POST', `/api/leads/${p.leadId}/outcome`, {idx:p.idx, outcome:S.pick, note:$('note').value.trim(), callback: when ? when.getTime() : null});
+    upsertLead(j.lead); S.pending = null; $('scrim').classList.add('hide'); renderAll();
+    if (o.cat === 'final') toast(`${l.first} ${l.last} is finalised. No more calls can be made.`);
+    else if (when) toast(`Added to the automated dialler queue for ${fmtDT(when)}.`);
+    else toast('Outcome saved.');
+  } catch (err) { $('m-err').textContent = err.message; }
+  $('m-save').disabled = false;
+});
+
+/* ---------- assign ---------- */
+function openAssign(id){
+  const l = S.leads.find(x => x.id === id); if (!l) return;
+  if (l.final) return toast('This lead is finalised and cannot be assigned.', true);
+  S.assignFor = id; S.assignPick = l.owner ? l.owner.id : null; S.sel = id; renderAll(); renderAssign();
+  $('pickScrim').classList.remove('hide');
+}
+function renderAssign(){
+  const l = S.leads.find(x => x.id === S.assignFor);
+  $('p-sub').textContent = `${l.first} ${l.last}${l.owner ? ' · currently ' + l.owner.name : ''}`;
+  $('p-list').innerHTML = S.employees.length
+    ? S.employees.map(e => `<button type="button" class="tile ${S.assignPick===e.id?'on':''}" data-emp="${esc(e.id)}">${esc(e.name)}<span class="tsub">${esc(fmtPhone(e.mobile))}</span></button>`).join('')
+    : '<div class="na" style="padding:8px 0">No sales employees yet. Add them on the Admin page first.</div>';
+  $('p-err').textContent = '';
+}
+$('p-list').addEventListener('click', e => { const t = e.target.closest('[data-emp]'); if (!t) return; S.assignPick = t.dataset.emp; renderAssign(); });
+$('p-cancel').addEventListener('click', () => $('pickScrim').classList.add('hide'));
+$('p-go').addEventListener('click', async () => {
+  if (!S.employees.length) { $('pickScrim').classList.add('hide'); showView('admin'); return; }
+  if (!S.assignPick) { $('p-err').textContent = 'Pick a sales employee.'; return; }
+  $('p-go').disabled = true;
+  try {
+    const j = await api('POST', `/api/leads/${S.assignFor}/assign`, {employeeId:S.assignPick});
+    upsertLead(j.lead); $('pickScrim').classList.add('hide'); renderAll();
+    toast(j.sms.simulated ? `Assigned to ${j.lead.owner.name}. SMS simulated (${j.sms.why}). Copy the link from the lead panel to test it.` : `Assigned to ${j.lead.owner.name}. SMS sent with a one-time link.`);
+  } catch (err) { $('p-err').textContent = err.message; }
+  $('p-go').disabled = false;
+});
+
+/* ---------- admin ---------- */
+function renderAdmin(){
+  renderToken();
+  const sw = $('storewarn'), st = S.storage;
+  sw.classList.toggle('hide', !st || st.persistent);
+  if (st && !st.persistent) sw.innerHTML = `<b>Data is not being saved permanently.</b> ${esc(st.error)}. Attach a Railway Volume mounted at the DATA_DIR path, or the leads, employees and settings reset on every restart.`;
+  $('emp-list').innerHTML = S.employees.length ? S.employees.map(e => `<div class="erow"><input class="e-name" value="${esc(e.name)}" aria-label="Name" maxlength="60"><input class="e-mob" value="${esc(e.mobile)}" aria-label="Mobile number"><button class="btn ghost sm" data-esave="${esc(e.id)}">Save</button><button class="btn ghost sm" data-edel="${esc(e.id)}">Remove</button></div>`).join('') : '<div class="na" style="padding:6px 0">No sales employees yet. Add the first one below.</div>';
+}
+async function saveEmployee(id, name, mobile){
+  try { const j = await api('PUT', '/api/employees/' + id, {name, mobile}); S.employees = j.employees; renderAdmin(); renderAll(); toast('Employee saved.'); }
+  catch(err){ toast(err.message, true); }
+}
+async function removeEmployee(id){
+  try { const j = await api('DELETE', '/api/employees/' + id); S.employees = j.employees; renderAdmin(); renderAll(); toast('Employee removed.'); }
+  catch(err){ toast(err.message, true); }
+}
+$('e-add').addEventListener('click', async () => {
+  try { const j = await api('POST', '/api/employees', {name:$('e-name').value, mobile:$('e-mob').value}); S.employees = j.employees; $('e-name').value=''; $('e-mob').value=''; setErr('f-emp'); renderAdmin(); renderAll(); toast('Employee added.'); }
+  catch(err){ setErr('f-emp', err.message); }
+});
+$('reset-btn').addEventListener('click', async () => {
+  if (!confirm('Reset all leads to the default state? This clears owners, call attempts, outcomes and one-time links. Sales employees and settings are kept.')) return;
+  try { const j = await api('POST', '/api/admin/reset'); S.leads = j.leads; S.sel = null; S.pending = null; renderAll(); toast('All leads were reset to their default state.'); }
+  catch(err){ toast(err.message, true); }
+});
+
+/* ---------- settings form ---------- */
+const BINDS = [['c-base','base'],['c-path','path'],['c-delim','delim'],['c-prefix','prefix'],['c-ovr','override'],['c-dani','dealerANI'],['c-incl','incl','b'],['c-sim','sim','b'],
+  ['c1-path','call.scriptPath'],['c1-id','call.scriptId'],['c1-skill','call.skillId'],
+  ['c2-path','sms.scriptPath'],['c2-id','sms.scriptId'],['c2-skill','sms.skillId'],['c2-link','sms.linkBase']];
+const getPath = (o, k) => k.split('.').reduce((a, x) => a[x], o);
+const setPath = (o, k, v) => { const p = k.split('.'); const last = p.pop(); p.reduce((a, x) => a[x], o)[last] = v; };
+let saveT, bound = false;
+function loadSettingsForm(){
+  BINDS.forEach(([id, key, t]) => { const el = $(id); const v = getPath(S.settings, key); if (t === 'b') el.checked = !!v; else el.value = v; });
+  if (!bound) {
+    bound = true;
+    BINDS.forEach(([id, key, t]) => {
+      const el = $(id);
+      el.addEventListener(t === 'b' ? 'change' : 'input', () => { setPath(S.settings, key, t === 'b' ? el.checked : el.value); scheduleSave(); });
+    });
+  }
+}
+function settingsValid(){
+  const s = S.settings;
+  return (!normNum(s.override) || E164.test(normNum(s.override))) && (!normNum(s.dealerANI) || E164.test(normNum(s.dealerANI)));
+}
+function scheduleSave(){
+  renderSetup(); renderPreview();
+  clearTimeout(saveT);
+  if (!settingsValid()) { $('savestat').textContent = 'Fix the highlighted fields to save.'; return; }
+  $('savestat').textContent = 'Saving…';
+  saveT = setTimeout(async () => {
+    try { const j = await api('PUT', '/api/settings', S.settings); S.settings = j.settings; $('savestat').textContent = 'Saved to the server.'; }
+    catch(err){ $('savestat').textContent = ''; toast(err.message, true); }
+  }, 500);
+}
+function chk(cfg, ids){
+  setErr(ids[0], cfg.scriptPath.trim() ? '' : 'Enter the script path.');
+  setErr(ids[1], /^\d+$/.test(cfg.scriptId) ? '' : (cfg.scriptId ? 'Must be a whole number.' : 'Enter the script ID.'));
+  setErr(ids[2], /^\d+$/.test(cfg.skillId) ? '' : (cfg.skillId ? 'Must be a whole number.' : 'Enter the skill ID.'));
+}
+function renderSetup(){
+  const s = S.settings;
+  setErr('f-dani', !normNum(s.dealerANI) || E164.test(normNum(s.dealerANI)) ? '' : 'Enter the number in E.164 format, like +911123456789.');
+  setErr('f-ovr', !normNum(s.override) || E164.test(normNum(s.override)) ? '' : 'Enter the number in E.164 format, like +61404294260.');
+  chk(s.call, ['f-c1path','f-c1id','f-c1skill']);
+  chk(s.sms, ['f-c2path','f-c2id','f-c2skill']);
+}
+function buildBody(cfg, params){
+  const d = S.settings.delim || '|';
+  return {skillId: parseInt(cfg.skillId,10) || 0, scriptId: parseInt(cfg.scriptId,10) || 0, scriptPath: cfg.scriptPath, parameters: params.map(v => String(v).split(d).join(' ')).join(d)};
+}
+function renderPreview(){
+  const s = S.settings; if (!s || !S.user) return;
+  const l = S.leads[0], e = S.employees[0];
+  const head = 'POST ' + (s.base || '(base from token)') + '/' + s.path.replace(/^\/+/, '') + '\nAuthorization: Bearer (held by the server)\nContent-Type: application/json\n\n';
+  if (l) {
+    const ov = E164.test(normNum(s.override)) ? normNum(s.override) : '';
+    const p = [S.user.phone, l.first + ' ' + l.last, l.brand, s.incl ? (ov || l.phone) : '', E164.test(normNum(s.dealerANI)) ? normNum(s.dealerANI) : ''];
+    while (p.length && !p[p.length-1]) p.pop();
+    $('preview1').textContent = head + JSON.stringify(buildBody(s.call, p), null, 2);
+  }
+  $('preview2').textContent = head + JSON.stringify(buildBody(s.sms, [e ? e.mobile : '+919876543210', '<lead GUID>']), null, 2);
+}
+const TOKEN_TEXT = {
+  'access-key':'No pasted token. Using the access key from the server environment, which the server refreshes itself.',
+  'client-credentials':'No pasted token. Using client credentials from the server environment, which the server refreshes itself.',
+  'env-token':'No pasted token. Using a fixed token from the server environment.',
+  'none':'No token is set, so calls and SMS are simulated. Paste a token below to go live.'
+};
+function renderToken(){
+  const t = S.tokenInfo, el = $('tokstat');
+  let txt, col = 'var(--green)';
+  if (t.source === 'session') {
+    const expired = t.exp && t.exp < Date.now();
+    txt = `Token held in server memory since ${fmtDT(t.setAt)}.` + (t.exp ? (expired ? ` It expired ${fmtDT(t.exp)}. Paste a new one.` : ` It expires ${fmtDT(t.exp)}.`) : ' Its expiry is unknown.');
+    if (expired) col = 'var(--red)';
+  } else { txt = TOKEN_TEXT[t.source]; if (t.source === 'none') col = 'var(--red)'; }
+  el.textContent = txt; el.style.color = col;
+  $('c-tok-clear').classList.toggle('hide', t.source !== 'session');
+}
+async function setToken(v, msg){
+  try { const j = await api('POST', '/api/token', {token:v}); S.tokenInfo = j.tokenInfo; $('c-token').value = ''; renderToken(); toast(msg); }
+  catch(err){ toast(err.message, true); }
+}
+function renderCalls(calls){
+  $('calls').innerHTML = calls.length ? calls.map(c => `<details class="call"><summary><b>${esc(c.script)}</b> &middot; ${esc(fmtDT(c.at))} &middot; ${c.error ? `<span class="chip ${c.simulated?'prog':'fin'}">${c.simulated?'Simulated':'Failed'}: ${esc(c.error)}</span>` : `<span class="chip ok">${esc(c.status)} OK${c.contactId?', contact '+esc(c.contactId):''}</span>`}</summary><pre class="pv">${esc(c.url || '(not sent)')}\n\nRequest:\n${esc(c.request ? JSON.stringify(c.request, null, 2) : '(not sent)')}\n\nResponse (${esc(c.status || 'none')}):\n${esc(c.response || '')}</pre></details>`).join('') : '<div class="na">No calls yet.</div>';
+}
+async function loadCalls(){ try { renderCalls((await api('GET', '/api/diagnostics')).calls); } catch(e){} }
+function renderIntegration(){
+  $('prefstat').textContent = S.settings.prefix ? `Example: ${S.settings.prefix}1000123456789` : 'Recording links stay off until a prefix is set.';
+  $('devwarn').classList.toggle('hide', !S.devMode);
+  renderSetup(); renderPreview(); loadCalls();
+}
+$('c-calls-refresh').addEventListener('click', loadCalls);
+$('c-tok-set').addEventListener('click', () => { if (!$('c-token').value.trim()) { toast('Paste a token first.', true); return; } setToken($('c-token').value, 'Token saved in server memory.'); });
+$('c-tok-clear').addEventListener('click', () => setToken('', 'Token cleared.'));
+
+/* ---------- boot ---------- */
+(async () => {
+  try { const me = await api('GET', '/api/me'); if (me.user) { await enterApp(); return; } } catch(e){}
+  showLogin();
+})();
+
+</script>
+</body>
+</html>

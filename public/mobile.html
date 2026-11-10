@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Lead Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b1f4d;--blue:#1b49b4;--blue-d:#133a94;--red:#d9001b;--red-bg:#fdecee;--ink:#1a1f2e;--mut:#5b6479;--line:#e3e7ef;--bg:#f4f6fb;--green:#0f7a4a;--green-bg:#e4f5ec;--blue-bg:#e8eefc}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:'Poppins','Segoe UI',system-ui,sans-serif;font-size:15px;color:var(--ink);background:var(--bg);line-height:1.5;min-height:100vh;padding-bottom:env(safe-area-inset-bottom)}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid #7aa2ff;outline-offset:2px}
+.hide{display:none!important}
+header{background:var(--navy);color:#fff;padding:calc(14px + env(safe-area-inset-top)) 18px 14px;display:flex;align-items:center;gap:10px}
+header i{width:28px;height:28px;background:var(--red);border-radius:6px;display:grid;place-items:center;font-style:normal;font-weight:600}
+header b{font-weight:600}
+header span{margin-left:auto;font-size:12px;color:#b8c5ee}
+main{padding:16px 16px 32px;max-width:520px;margin:0 auto}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin:0 0 14px}
+h1{font-size:21px;margin:0;color:var(--navy);font-weight:600}
+.sub{color:var(--mut);font-size:13px}
+.chip{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:500;background:var(--blue-bg);color:var(--blue-d)}
+.chip.n{background:#1a1a1a;color:#e6c46a}
+.kv{display:grid;grid-template-columns:112px 1fr;gap:6px 10px;font-size:14px;margin:12px 0 0}
+.kv dt{color:var(--mut)}.kv dd{margin:0}
+.na{color:#a3abbd;font-style:italic}
+.btn{display:block;width:100%;border:0;border-radius:999px;padding:15px 20px;background:var(--blue);color:#fff;font-weight:500;font-size:16px;cursor:pointer;margin:10px 0 0}
+.btn:active{background:var(--blue-d)}
+.btn.ghost{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
+.btn.red{background:var(--red)}
+.btn:disabled{opacity:.6}
+.msg{text-align:center;padding:36px 12px}
+.msg .ic{width:56px;height:56px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center;font-size:26px;background:var(--red-bg);color:var(--red)}
+.msg.ok .ic{background:var(--green-bg);color:var(--green)}
+.msg h1{margin-bottom:8px}
+.err{color:var(--red);font-size:13px;margin:10px 0 0;text-align:center}
+.note{background:var(--blue-bg);color:var(--blue-d);border-radius:10px;padding:10px 12px;font-size:13px;margin:0 0 14px}
+.sheetwrap{position:fixed;inset:0;background:rgba(8,16,40,.6);z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:520px;max-height:92vh;overflow:auto;padding:18px 16px calc(18px + env(safe-area-inset-bottom))}
+@media (prefers-reduced-motion:no-preference){.sheet{animation:up .22s ease-out}@keyframes up{from{transform:translateY(40px);opacity:.6}to{transform:none;opacity:1}}}
+.sheet h2{margin:0 0 2px;font-size:19px;color:var(--navy);font-weight:600}
+.grp{font-size:12.5px;font-weight:500;margin:16px 0 8px;color:var(--blue-d)}
+.grp.f{color:var(--red)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tile{text-align:left;border:1.5px solid #cfd6e6;background:#fff;border-radius:12px;padding:12px;cursor:pointer;font-weight:500;font-size:14px;min-height:50px}
+.tile.on{border-color:var(--blue);background:var(--blue-bg);color:var(--blue-d)}
+.tile.f{border-color:#f0b4bb}
+.tile.f.on{border-color:var(--red);background:var(--red-bg);color:#a30016}
+.fld{margin:14px 0 0}
+.fld label{display:block;font-size:12.5px;font-weight:500;color:var(--mut);margin:0 0 4px}
+.fld input{width:100%;padding:12px;border:1.5px solid #cfd6e6;border-radius:10px;background:#fff}
+.warn{background:var(--red-bg);border-left:5px solid var(--red);color:#8d0014;padding:10px 12px;border-radius:6px;margin:12px 0 0;font-size:13.5px}
+.okmsg{background:var(--green-bg);border-left:5px solid var(--green);color:#0a5a36;padding:10px 12px;border-radius:6px;margin:12px 0 0;font-size:13.5px;font-weight:500}
+</style>
+</head>
+<body>
+<header><i>S</i><b>Lead Desk</b><span id="who"></span></header>
+<main id="main"><div class="msg"><div class="sub">Loading your lead…</div></div></main>
+
+<div class="sheetwrap hide" id="sheetwrap" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+  <div class="sheet">
+    <h2 id="sheet-title">Call outcome</h2>
+    <div class="sub" id="sheet-sub"></div>
+    <div id="sheet-body"></div>
+    <div class="err" id="sheet-err"></div>
+    <button class="btn" id="sheet-save" type="button">Save outcome</button>
+  </div>
+</div>
+
+<script src="/outcomes.js"></script>
+<script>
+'use strict';
+const {OUTCOMES, OC} = window.Outcomes;
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtDT = d => new Date(d).toLocaleString('en-IN', {day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit'});
+const guid = location.pathname.split('/').filter(Boolean).pop();
+const RK = 'rk:' + guid;
+let rk = ''; try { rk = sessionStorage.getItem(RK) || ''; } catch(e){}
+let lead = null, employee = '', pick = null;
+
+async function api(method, url, body){
+  const r = await fetch(url, {method, headers: body ? {'Content-Type':'application/json'} : {}, body: body ? JSON.stringify(body) : undefined, cache:'no-store'});
+  let j = {}; try { j = await r.json(); } catch(e){}
+  if (!r.ok) { const e = new Error(j.error || 'Something went wrong. Try again.'); e.status = r.status; throw e; }
+  return j;
+}
+function message(kind, title, text){
+  $('main').innerHTML = `<div class="card msg ${kind==='ok'?'ok':''}"><div class="ic">${kind==='ok'?'&#10003;':'!'}</div><h1>${esc(title)}</h1><p class="sub">${esc(text)}</p></div>`;
+}
+function renderLead(banner){
+  const l = lead, na = '<span class="na">not provided</span>';
+  $('who').textContent = employee;
+  $('main').innerHTML = `
+    ${banner ? `<div class="note">${esc(banner)}</div>` : ''}
+    <div class="card">
+      <h1>${esc(l.first)} ${esc(l.last)}</h1>
+      <div style="margin-top:6px"><span class="chip ${l.brand.endsWith('Nexa')?'n':''}">${esc(l.brand)}</span></div>
+      <dl class="kv">
+        <dt>Interested in</dt><dd>${esc(l.model)}</dd>
+        <dt>City</dt><dd>${l.city?esc(l.city):na}</dd>
+        <dt>Best time</dt><dd>${l.callPref?esc(l.callPref):na}</dd>
+        <dt>Current car</dt><dd>${l.currentCar?esc(l.currentCar):na}</dd>
+        <dt>Trade-in</dt><dd>${l.tradeIn?esc(l.tradeIn):na}</dd>
+        <dt>Budget</dt><dd>${l.budget?esc(l.budget):na}</dd>
+        <dt>Fuel</dt><dd>${l.fuel?esc(l.fuel):na}</dd>
+      </dl>
+    </div>
+    <div class="card" id="callcard">
+      <div class="sub">Tap below and your phone rings first, then you're connected to the customer. This link works once.</div>
+      <button class="btn" id="call-p" type="button">Call customer</button>
+      ${l.hasAlt ? '<button class="btn ghost" id="call-a" type="button">Call alternate number</button>' : ''}
+      <div class="err" id="call-err"></div>
+    </div>`;
+  $('call-p').addEventListener('click', () => startCall('p'));
+  if (l.hasAlt) $('call-a').addEventListener('click', () => startCall('a'));
+}
+async function startCall(key){
+  ['call-p','call-a'].forEach(id => { const b = $(id); if (b) b.disabled = true; });
+  $('call-err').textContent = '';
+  try {
+    const j = await api('POST', `/api/m/${guid}/call`, {key});
+    rk = j.rk; try { sessionStorage.setItem(RK, rk); } catch(e){}
+    lead = j.lead; renderLead('Your phone is ringing. Record the outcome when the call ends.');
+    $('callcard').classList.add('hide');
+    openSheet();
+  } catch (err) {
+    if (err.status === 409 || err.status === 404) return load();
+    ['call-p','call-a'].forEach(id => { const b = $(id); if (b) b.disabled = false; });
+    $('call-err').textContent = "Couldn't start the call. " + err.message;
+  }
+}
+function openSheet(){
+  pick = null;
+  $('sheet-sub').textContent = `${lead.first} ${lead.last}`;
+  const tile = o => `<button type="button" class="tile ${o.cat==='final'?'f':''}" data-k="${o.k}">${esc(o.l)}</button>`;
+  $('sheet-body').innerHTML = `
+    <div class="grp">Keep the lead open</div>
+    <div class="tiles">${OUTCOMES.filter(o=>o.cat==='open').map(tile).join('')}</div>
+    <div id="sched" class="hide"><div class="fld"><label for="when">Call back on</label><input type="datetime-local" id="when"></div><div id="schedmsg"></div></div>
+    <div class="grp f">Finalise the lead: no more calls</div>
+    <div class="tiles">${OUTCOMES.filter(o=>o.cat==='final').map(tile).join('')}</div>
+    <div id="finwarn" class="warn hide"><b>This locks the lead.</b> No further calls can be made.</div>
+    <div class="fld"><label for="note">Notes (optional)</label><input id="note" maxlength="200" placeholder="Anything worth remembering"></div>`;
+  $('sheet-err').textContent = '';
+  const now = new Date(Date.now() + 15*60e3 - new Date().getTimezoneOffset()*60e3);
+  $('when').min = now.toISOString().slice(0,16);
+  $('sheetwrap').classList.remove('hide');
+}
+$('sheet-body').addEventListener('click', e => {
+  const t = e.target.closest('.tile'); if (!t) return;
+  pick = t.dataset.k; const o = OC[pick];
+  $('sheet-body').querySelectorAll('.tile').forEach(x => x.classList.toggle('on', x === t));
+  $('sched').classList.toggle('hide', !o.schedule);
+  $('finwarn').classList.toggle('hide', o.cat !== 'final');
+  $('sheet-err').textContent = '';
+  if (o.schedule) updateSched(); else $('schedmsg').innerHTML = '';
+});
+function whenValid(){const v=$('when').value;if(!v)return null;const d=new Date(v);return d.getTime()>Date.now()?d:null}
+function updateSched(){
+  const d = whenValid();
+  $('schedmsg').innerHTML = d ? `<div class="okmsg">&#10003; This lead is now added to the automated dialler queue for ${esc(fmtDT(d))}.</div>` : '';
+}
+$('sheet-body').addEventListener('input', e => { if (e.target.id === 'when') { updateSched(); $('sheet-err').textContent = ''; } });
+$('sheet-save').addEventListener('click', async () => {
+  if (!pick) { $('sheet-err').textContent = 'Pick an outcome to continue.'; return; }
+  const o = OC[pick]; let when = null;
+  if (o.schedule) { when = whenValid(); if (!when) { $('sheet-err').textContent = 'Choose a date and time in the future.'; return; } }
+  $('sheet-save').disabled = true;
+  try {
+    await api('POST', `/api/m/${guid}/outcome`, {rk, outcome:pick, note:$('note').value.trim(), callback: when ? when.getTime() : null});
+    $('sheetwrap').classList.add('hide');
+    try { sessionStorage.removeItem(RK); } catch(e){}
+    if (o.cat === 'final') message('ok', 'Lead finalised', 'Thanks. This lead is now locked and no more calls can be made.');
+    else if (when) message('ok', 'Added to the dialler queue', `Thanks. This lead will be called again on ${fmtDT(when)}.`);
+    else message('ok', 'Outcome saved', 'Thanks. You can close this page.');
+  } catch (err) {
+    $('sheet-err').textContent = err.message;
+    if (err.status === 409) { $('sheetwrap').classList.add('hide'); load(); }
+  }
+  $('sheet-save').disabled = false;
+});
+
+async function load(){
+  try {
+    const j = await api('GET', `/api/m/${guid}${rk ? '?rk=' + encodeURIComponent(rk) : ''}`);
+    if (j.status === 'ok') { lead = j.lead; employee = j.employee; return renderLead(''); }
+    if (j.status === 'resume') { lead = j.lead; employee = j.employee; renderLead('Finish recording your call.'); $('callcard').classList.add('hide'); return openSheet(); }
+    $('sheetwrap').classList.add('hide');
+    message('x', j.status === 'expired' ? 'This link has expired' : j.status === 'closed' ? 'Lead closed' : "This link isn't valid", j.message);
+  } catch (err) { message('x', "Couldn't load the lead", err.message); }
+}
+load();
+</script>
+</body>
+</html>
