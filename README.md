@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Lead Desk
 
 Lead qualification for Maruti Suzuki enquiries. A zero-dependency Node.js server (Node 18+) serves the desktop app and a mobile page, calls the CXone start-script API, and keeps all data in one JSON file.
@@ -87,3 +88,6 @@ The script ID changes every time a script is saved in Studio, so update it after
 The Integration page shows the exact request each script will send, and a Recent API calls list with the request and CXone's response for the last 20 calls (the token is never shown). If CXone rejects a call, its error text is shown in the message.
 
 The default endpoint path is `/incontactapi/services/v33.0/scripts/start`. I could not read the Developer Portal spec, so confirm the base URL and path there and edit them on the Integration page if they differ.
+=======
+# lead-desk
+>>>>>>> 89de09e7ae2987f684d0fdb80353b9a68e5e5df6
